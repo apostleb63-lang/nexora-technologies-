@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nexora Financial — Phase 1 Demo</title>
+<style>
+:root{--navy:#10233f;--blue:#2563eb;--green:#16a36a;--ink:#17243a;--muted:#64748b;--line:#e5eaf1;--bg:#f4f7fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.5 Arial,sans-serif;color:var(--ink)}
+header{background:var(--navy);color:white;padding:24px max(20px,calc((100% - 1100px)/2))}
+header .brand{font-size:23px;font-weight:700;letter-spacing:.3px}header p{margin:5px 0 0;color:#c8d5e7}
+main{max-width:1100px;margin:24px auto;padding:0 16px}.notice{background:#fff8e7;border:1px solid #f1d58b;color:#76520a;border-radius:12px;padding:13px 16px;margin-bottom:20px}
+nav{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}nav a{background:white;border:1px solid var(--line);border-radius:9px;padding:9px 13px;color:var(--navy);text-decoration:none;font-weight:600}
+h1{font-size:25px;margin:0 0 5px}h2{font-size:18px;margin:0 0 14px}.sub{color:var(--muted);margin:0 0 20px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0}.metric,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:17px;box-shadow:0 2px 8px #10233f08}
+.metric span{display:block;color:var(--muted);font-size:13px}.metric strong{display:block;font-size:25px;margin-top:5px}
+.columns{display:grid;grid-template-columns:1.1fr .9fr;gap:15px;margin:15px 0}
+label{display:block;font-weight:600;font-size:13px;margin:10px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #ccd5e2;border-radius:8px;font:inherit;background:white}
+button{border:0;background:var(--blue);color:white;padding:11px 15px;border-radius:8px;font-weight:700;cursor:pointer;margin-top:12px}button.secondary{background:#eaf0fb;color:var(--navy)}button.green{background:var(--green)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row input{flex:1;min-width:160px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line)}th{color:var(--muted)}
+.status{display:inline-block;border-radius:20px;padding:3px 8px;background:#eef2f7;font-size:12px}.empty{color:var(--muted);padding:16px 0}
+.check{display:flex;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.check input{width:auto}
+footer{color:var(--muted);text-align:center;padding:30px 12px;font-size:12px}
+@media(max-width:760px){.metrics{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}main{margin-top:16px}header{padding:20px}}
+</style>
+</head>
+<body>
+<header><div class="brand">NEXORA FINANCIAL</div><p>Connecting the world. Simplifying tomorrow.</p></header>
+<main>
+<div class="notice"><strong>DEMO ONLY:</strong> This prototype is a planning and record-keeping demonstration. It does not move money, connect to banks, process payments, or verify legal compliance. Use fictional information only.</div>
+<nav><a href="#overview">Overview</a><a href="#payments">Payment records</a><a href="#documents">Documents</a><a href="#reports">Reports</a></nav>
+<section id="overview"><h1>Financial operations workspace</h1><p class="sub">A simple view of cross-border contractor payment administration.</p>
+<div class="metrics">
+<div class="metric"><span>Payment records</span><strong id="count">0</strong></div>
+<div class="metric"><span>Total recorded</span><strong id="total">GH₵0.00</strong></div>
+<div class="metric"><span>Awaiting payment</span><strong id="pending">0</strong></div>
+<div class="metric"><span>Marked complete</span><strong id="complete">0</strong></div>
+</div></section>
+<div class="columns">
+<section class="panel" id="payments"><h2>Add a payment record</h2>
+<form id="paymentForm">
+<label for="recipient">Contractor / recipient</label><input id="recipient" required placeholder="e.g. Sample Design Studio">
+<label for="country">Country</label><input id="country" required placeholder="e.g. Ghana">
+<label for="amount">Amount (GH₵ equivalent)</label><input id="amount" type="number" min="0.01" step="0.01" required placeholder="0.00">
+<label for="purpose">Purpose</label><input id="purpose" required placeholder="e.g. Design services">
+<label for="status">Status</label><select id="status"><option>Awaiting payment</option><option>Payment initiated externally</option><option>Completed (manually recorded)</option><option>Needs attention</option></select>
+<button type="submit">Add record</button>
+</form></section>
+<section class="panel" id="documents"><h2>Document checklist</h2><p class="sub">Track documents your business may need to review. This is not a compliance determination.</p>
+<div id="checks">
+<label class="check"><input type="checkbox"> Contractor agreement collected</label>
+<label class="check"><input type="checkbox"> Invoice received</label>
+<label class="check"><input type="checkbox"> Recipient details reviewed</label>
+<label class="check"><input type="checkbox"> Payment evidence saved</label>
+<label class="check"><input type="checkbox"> Internal review completed</label>
+</div></section>
+</div>
+<section class="panel"><div class="row" style="justify-content:space-between"><h2>Payment register</h2><button class="secondary" id="export">Export CSV</button></div>
+<div class="row"><input id="search" placeholder="Search recipient, country or purpose"><select id="filter" style="max-width:220px"><option value="">All statuses</option><option>Awaiting payment</option><option>Payment initiated externally</option><option>Completed (manually recorded)</option><option>Needs attention</option></select></div>
+<div style="overflow-x:auto"><table><thead><tr><th>Recipient</th><th>Country</th><th>Purpose</th><th>Amount</th><th>Status</th></tr></thead><tbody id="records"><tr><td colspan="5" class="empty">No records yet. Add a fictional demo record above.</td></tr></tbody></table></div>
+</section>
+<section class="panel" id="reports" style="margin-top:15px"><h2>Reconciliation & reporting</h2><p class="sub">Use this workspace to compare your internal register with records from your existing bank or licensed payment provider. Enter no account numbers or sensitive personal data in this demo.</p><p id="summary">Your report will appear here after you add records.</p><button class="green" id="report">Refresh summary</button></section>
+<section class="panel" style="margin-top:15px"><h2>About this prototype</h2><p>Nexora Financial is exploring a business operations dashboard for companies coordinating payments to contractors across borders. The early product concept focuses on record keeping, document checklists, payment-status visibility and reconciliation — while customers continue to use their own banks or licensed payment providers to move funds.</p></section>
+</main><footer>Nexora Technologies · Phase 1 concept prototype · Demo data stays in this browser</footer>
+<script>
+const KEY='nexora_demo_records_v1';let records=[];try{records=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+const $=id=>document.getElementById(id);const money=n=>'GH₵'+Number(n).toLocaleString('en-GH',{minimumFractionDigits:2,maximumFractionDigits:2});
+function save(){localStorage.setItem(KEY,JSON.stringify(records));render()}
+function render(){const q=$('search').value.toLowerCase(),f=$('filter').value;const shown=records.filter(r=>(!f||r.status===f)&&[r.recipient,r.country,r.purpose].join(' ').toLowerCase().includes(q));
+$('records').innerHTML=shown.length?shown.map(r=>`<tr><td>${esc(r.recipient)}</td><td>${esc(r.country)}</td><td>${esc(r.purpose)}</td><td>${money(r.amount)}</td><td><span class="status">${esc(r.status)}</span></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No matching records.</td></tr>';
+$('count').textContent=records.length;$('total').textContent=money(records.reduce((s,r)=>s+Number(r.amount),0));$('pending').textContent=records.filter(r=>r.status==='Awaiting payment').length;$('complete').textContent=records.filter(r=>r.status==='Completed (manually recorded)').length;
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('paymentForm').addEventListener('submit',e=>{e.preventDefault();records.unshift({recipient:$('recipient').value,country:$('country').value,amount:Number($('amount').value),purpose:$('purpose').value,status:$('status').value});e.target.reset();save()});
+$('search').addEventListener('input',render);$('filter').addEventListener('change',render);
+$('export').addEventListener('click',()=>{const rows=[['Recipient','Country','Purpose','Amount GHS','Status'],...records.map(r=>[r.recipient,r.country,r.purpose,r.amount,r.status])];const csv=rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='nexora-payment-register-demo.csv';a.click();URL.revokeObjectURL(a.href)});
+$('report').addEventListener('click',()=>{$('summary').textContent=`${records.length} records · ${money(records.reduce((s,r)=>s+Number(r.amount),0))} total recorded · ${records.filter(r=>r.status==='Needs attention').length} need attention. Compare each item manually with your external provider statement.`});
+render();
+</script></body></html>
